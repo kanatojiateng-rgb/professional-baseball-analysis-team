@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<title>プロ野球チームデータ分析</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+
+ <body>
+    <div class="main-container">
+      <h1 align="center">Professional Baseball Analysis</h1>
+        
+      <h2>データの登録と分析</h2>
+  <div class="box">
+  
+  <p>
+    年度：
+    <select id="start_Year" name="start_year">
+    </select>
+   </p> 
+  
+  <p>
+    終了年度：
+    <select id="end_Year" name="end_year">
+    </select>
+  </p>
+  
+  <p>
+    チーム名：
+    <select id="teamSelector1" name="team_ids" multiple size="6">
+      <option value>チームを選択</option>
+      <option value="hanshin">阪神タイガース</option>
+      <option value="giants">読売ジャイアンツ</option>
+      <option value="yakult">東京ヤクルトスワローズ</option>
+      <option value="chunichi">中日ドラゴンズ</option>
+      <option value="carp">広島東洋カープ</option>
+      <option value="dena">横浜DeNAベイスターズ</option>
+      <option value="hawks">福岡ソフトバンクホークス</option>
+      <option value="lions">埼玉西武ライオンズ</option>
+      <option value="marines">千葉ロッテマリーンズ</option>
+      <option value="eagles">東北楽天ゴールデンイーグルス</option>
+      <option value="fighters">北海道日本ハムファイターズ</option>
+      <option value="baffaloes">オリックスバファローズ</option>
+    </select>
+  </p>
+
+
+  <p>
+     分析項目（複数選択可）：
+     <select id="analysisItems" name="items" multiple>
+
+      <option value="試合">試合</option>
+      <option value="打席">打席</option>
+      <option value="打数">打数</option>
+      <option value="得点">得点</option>
+      <option value="安打">安打</option>
+      <option value="二塁打">二塁打</option>
+      <option value="三塁打">三塁打</option>
+      <option value="本塁打">本塁打</option>
+      <option value="塁打">塁打</option>
+      <option value="打点">打点</option>
+      <option value="盗塁">盗塁</option>
+      <option value="盗塁刺">盗塁刺</option>
+      <option value="犠打">犠打</option>
+      <option value="犠飛">犠飛</option>
+      <option value="四球">四球</option>
+      <option value="故意四">故意四</option>
+      <option value="死球">死球</option>
+      <option value="三振">三振</option>
+      <option value="併殺打">併殺打</option>
+      <option value="打率">打率</option>
+      <option value="長打率">長打率</option>
+      <option value="出塁率">出塁率</option> 
+     </select>
+     <br>
+     <small>※Ctrl（Command）キーを押しながら複数選択できます
+     </small>
+  </p>
+ </div>
+</div>
+
+
+<style>
+
+.main-container {
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  gap: 0;
+  display: flex;
+  margin: 0 auto;
+}
+
+h1 {
+  color: yellowgreen;
+  text-align: center;
+  font-size: 40px;
+  margin: 15px 0 10px 0;
+}
+
+h2 {
+  color: cadetblue;
+  font-size: 30px;
+  margin-top: 20px;
+  text-align: center;
+}
+
+body {
+  background-color: beige;
+}
+
+p {
+  color: brown;
+  font-size: 25px;
+  width: 300px;
+}
+
+.box {
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  margin: 0;
+}
+
+select {
+  width: 250px;
+  height: 30px;
+}
+</style>
+
+ <script src="script.js"></script>
+ </body>
+</html>
