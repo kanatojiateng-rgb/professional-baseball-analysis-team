@@ -1,19 +1,50 @@
-const startYearSelect = document.getElementById("start_Year");
-const endYearSelect = document.getElementById("end_Year");
+const ctx = document.getElementById("teamChart");
 
-console.log("セレクトボックスを取得出来たよ！", startYearSelect);
-console.log("終了年度:", endYearSelect);
+new Chart(ctx, {
+  type: "bar",
+  data: {
+    labels: ["2021年", "2022年", "2023年", "2024年", "2025年"],
+    datasets: [
+      {
+        type: "bar",
+        label: "安打数",
+        data: [1200, 1250, 1180, 1300, 1280],
+        yAxisID: "y"
+      },
+      {
+        type: "line",
+        label: "打率",
+        data: [0.250, 0.265, 0.258, 0.275, 0.268],
+        yAxisID: "y1"
+      }
+    ]
+  },
+  options: {
+    responsive: true,
+    scales: {
+      y: {
+        type: "linear",
+        position: "left",
+        title: {
+          display: true,
+          text: "安打数"
+        }
+      },
+      y1: {
+        type: "linear",
+        position: "right",
+        title: {
+          display: true,
+          text: "打率"
+        },
+        min: 0,
+        max: 0.4,
+        grid: {
+          drawOnChartArea: false
+        }
+      }
+    }
+  }
+});
 
-for (let year = 2005; year <= 2026; year++) {
 
-
-const option1 = document.getElementById("option");
-option1.value = year;
-option1.textContent = year;
-startYearSelect.appendChild(option1);
-
-const option2 = document.getElementById("option");
-option2.value = year;
-option2.textContent = year; 
-endYearSelect.appendChild(option2);
-}

@@ -16,19 +16,61 @@
   <p>
     年度：
     <select id="start_Year" name="start_year">
+      <option value>2005</option>
+      <option value>2006</option>
+      <option value>2007</option>
+      <option value>2008</option>
+      <option value>2009</option>
+      <option value>2010</option>
+      <option value>2011</option>
+      <option value>2012</option>
+      <option value>2013</option>
+      <option value>2014</option>
+      <option value>2015</option>
+      <option value>2016</option>
+      <option value>2017</option>
+      <option value>2018</option>
+      <option value>2019</option>
+      <option value>2020</option>
+      <option value>2021</option>
+      <option value>2022</option>
+      <option value>2023</option>
+      <option value>2024</option>
+      <option value>2025</option>
     </select>
    </p> 
   
   <p>
     終了年度：
     <select id="end_Year" name="end_year">
+      <option value>2005</option>
+      <option value>2006</option>
+      <option value>2007</option>
+      <option value>2008</option>
+      <option value>2009</option>
+      <option value>2010</option>
+      <option value>2011</option>
+      <option value>2012</option>
+      <option value>2013</option>
+      <option value>2014</option>
+      <option value>2015</option>
+      <option value>2016</option>
+      <option value>2017</option>
+      <option value>2018</option>
+      <option value>2019</option>
+      <option value>2020</option>
+      <option value>2021</option>
+      <option value>2022</option>
+      <option value>2023</option>
+      <option value>2024</option>
+      <option value>2025</option>
     </select>
   </p>
   
   <p>
     チーム名：
-    <select id="teamSelector1" name="team_ids" multiple size="6">
-      <option value>チームを選択</option>
+    <select id="teamSelector1" name="team_ids">
+      <option value="">チームを選択</option>
       <option value="hanshin">阪神タイガース</option>
       <option value="giants">読売ジャイアンツ</option>
       <option value="yakult">東京ヤクルトスワローズ</option>
@@ -47,7 +89,7 @@
 
   <p>
      分析項目（複数選択可）：
-     <select id="analysisItems" name="items" multiple>
+     <select id="analysisItems" name="items">
 
       <option value="試合">試合</option>
       <option value="打席">打席</option>
@@ -76,6 +118,10 @@
      <small>※Ctrl（Command）キーを押しながら複数選択できます
      </small>
   </p>
+
+  <div class="button-area">
+    <button id="analysisBtn" type="button">分析を実行</button>
+  </div>
  </div>
 </div>
 
@@ -124,10 +170,28 @@ p {
 
 select {
   width: 250px;
-  height: 30px;
+  height: 40px;
+}
+
+.button-area {
+  margin: 30px 0 60px;
+}
+
+#analysisBtn {
+  padding: 12px 40px;
+  font-size: 22px;
+  color: white;
+  background-color: green;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+#analysisBtn:hover {
+  background-color: olivedrab;
 }
 </style>
 
- <script src="script.js"></script>
+
  </body>
 </html>
