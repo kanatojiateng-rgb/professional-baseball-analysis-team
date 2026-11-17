@@ -162,10 +162,6 @@ const chart = new Chart(ctx, {
               label += context.parsed.y;
             }
 
-            if (teamName) {
-              label += ` （${teamName}に所属）`;
-            }
-
             return label;
           }
         }
