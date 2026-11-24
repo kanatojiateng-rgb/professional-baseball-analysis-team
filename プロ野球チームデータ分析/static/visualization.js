@@ -1,5 +1,6 @@
-// analysis_chart.js
-const ctx = document.getElementById('myChart').getContext('2d');
+// visualization.js
+const canvas = document.getElementById('myChart');
+const ctx = canvas.getContext('2d');
 
 const itemLeft = selectedItems[0] || "項目１";
 const itemRight = selectedItems[1] || "項目２";
@@ -17,6 +18,17 @@ const barColors = [
 ];
 
 const isSingleItem = selectedItems.length === 1;
+
+// グラフを表示するスクロール領域
+const scrollArea = canvas.parentElement;
+
+// 最初のグラフ幅：年度数に応じて確保
+const baseWidth = Math.max(
+  scrollArea.clientWidth,
+  chartLabels.length * 90
+);
+
+let currentWidth = baseWidth;
 
 Chart.defaults.font.size = 16;
 Chart.defaults.font.family = "'Meiryo', 'Yu Gothic', sans-serif";
@@ -71,7 +83,7 @@ const chart = new Chart(ctx, {
     layout: {
       padding: { bottom: 20 }
     },
-    responsive: true,
+    responsive: false,
     maintainAspectRatio: false,
 
      interaction: {
@@ -84,6 +96,14 @@ const chart = new Chart(ctx, {
         ticks: {
           align: 'center',
           color: '#666666',
+
+          // 年度を省略せずに表示
+          autoSkip: false,
+
+          minRotation: 0,
+          maxRotation: 45,
+
+
           font: {size :18 }
         },
         offset: true
@@ -98,12 +118,7 @@ const chart = new Chart(ctx, {
           display: true,
           color: 'rgba(0,0,0, 0.05)'
         },
-        title: {
-          display: true,
-          text: itemLeft,
-          color: '#6B7A99',
-          font: { weight: 'bold' }
-        },
+        
         ticks: {
           color: '#6B7A99',
           font:{ size: 16 }
@@ -165,44 +180,86 @@ const chart = new Chart(ctx, {
             return label;
           }
         }
-      },
-
-      // ここからズーム設定
-      zoom: {
-        pan: {
-          enabled: true,
-          mode: 'xy'
-        },
-        zoom: {
-          mode: 'xy',
-          pinch: {
-            enabled: true
-          },
-          wheel: {
-            enabled: false
-          },
-          drag: {
-            enabled: false
-          }
-        },
-        limits: {
-          x: { minRange: 1 },
-          y: { minRange: 1 },
-          y1: { minRange: 1 }
-        }
       }
     }
-}  
-      })
-      document.getElementById('zoomIn').addEventListener('click', () => {
-  chart.zoom(1.2);
+  }   
+      });
+   
+ 
+// グラフの幅を変更する関数
+function updateCanvasWidth() {
+  const minWidth = scrollArea.clientWidth;
+  const maxWidth = baseWidth * 4;
+
+  // 最小幅・最大幅を設定
+  currentWidth = Math.min(
+    maxWidth,
+    Math.max(minWidth, currentWidth)
+  );
+
+  canvas.style.width = currentWidth + 'px';
+  canvas.style.height = '400px';
+
+  chart.resize(currentWidth, 400);
+}
+
+// 初期表示
+updateCanvasWidth();
+
+// 拡大ボタン
+document.getElementById('zoomIn').addEventListener('click', () => {
+  currentWidth *= 1.2;
+  updateCanvasWidth();
 });
 
+// 縮小ボタン
 document.getElementById('zoomOut').addEventListener('click', () => {
-  chart.zoom(0.8);
+  currentWidth *= 0.8;
+  updateCanvasWidth();
 });
 
+// リセットボタン
 document.getElementById('zoomReset').addEventListener('click', () => {
-  chart.resetZoom();
+  currentWidth = baseWidth;
+  updateCanvasWidth();
+
+  // 横スクロールも先頭に戻す
+  scrollArea.scrollLeft = 0;
 });
-      
+
+// 2本指のピンチ操作
+let pinchStartDistance = 0;
+let pinchStartWidth = 0;
+
+function getTouchDistance(touches) {
+  const dx = touches[0].clientX - touches[1].clientX;
+  const dy = touches[0].clientY - touches[1].clientY;
+
+  return Math.sqrt(dx * dx + dy * dy);
+}
+
+scrollArea.addEventListener('touchstart', (e) => {
+  if (e.touches.length === 2) {
+    pinchStartDistance = getTouchDistance(e.touches);
+    pinchStartWidth = currentWidth;
+  }
+}, { passive: true });
+
+scrollArea.addEventListener('touchmove', (e) => {
+  if (e.touches.length === 2 && pinchStartDistance > 0) {
+    e.preventDefault();
+
+    const currentDistance = getTouchDistance(e.touches);
+    const scale = currentDistance / pinchStartDistance;
+
+    currentWidth = pinchStartWidth * scale;
+    updateCanvasWidth();
+  }
+}, { passive: false });
+
+scrollArea.addEventListener('touchend', (e) => {
+  if (e.touches.length < 2) {
+    pinchStartDistance = 0;
+  }
+});
+  
